@@ -3,7 +3,10 @@ import PokemonContext from "../PokemonContext";
 import PokemonRow from "./PokemonRow";
 
 const PokemonTable = () => {
-  const { pokemon, filter, setSelectedPokemon } = useContext(PokemonContext);
+  const {
+    state: { pokemon, filter },
+    dispatch,
+  } = useContext(PokemonContext);
   return (
     <table width="100%">
       <thead>
@@ -22,7 +25,12 @@ const PokemonTable = () => {
             <PokemonRow
               pokemon={pokemon}
               key={pokemon.id}
-              onSelect={(pokemon) => setSelectedPokemon(pokemon)}
+              onSelect={(pokemon) =>
+                dispatch({
+                  type: "SET_SELECTED_POKEMON",
+                  payload: pokemon,
+                })
+              }
             />
           ))}
       </tbody>
